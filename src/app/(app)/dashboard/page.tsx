@@ -10,6 +10,7 @@ import {
 import { MetricCard } from "@/components/metric-card";
 import { RevenueChart } from "@/components/charts/revenue-chart";
 import { StatusChart } from "@/components/charts/status-chart";
+import { OrdersChart } from "@/components/charts/orders-chart";
 import { currency, number } from "@/lib/format";
 import { STATUS_ORDER } from "@/lib/status";
 
@@ -29,7 +30,7 @@ export default async function DashboardPage() {
 
   const all = (orders ?? []) as OrderRow[];
 
-  // revenue by month (last 12 months)
+  // revenue + order volume by month (last 12 months)
   const now = new Date();
   const months = Array.from({ length: 12 }, (_, i) => {
     const d = new Date(now.getFullYear(), now.getMonth() - (11 - i), 1);
@@ -37,24 +38,24 @@ export default async function DashboardPage() {
       key: `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`,
       month: d.toLocaleDateString("en-US", { month: "short" }),
       revenue: 0,
+      orders: 0,
     };
   });
   const monthIdx = new Map(months.map((m, i) => [m.key, i]));
   for (const o of all) {
-    if (!REVENUE.has(o.status)) continue;
     const d = new Date(o.created_at);
     const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
     const i = monthIdx.get(key);
-    if (i !== undefined) months[i].revenue += Number(o.total_amount);
+    if (i === undefined) continue;
+    months[i].orders += 1;
+    if (REVENUE.has(o.status)) months[i].revenue += Number(o.total_amount);
   }
 
-  // orders by status
   const statusCounts = STATUS_ORDER.map((s) => ({
     status: s,
     count: all.filter((o) => o.status === s).length,
-  }));
+  })).filter((s) => s.count > 0);
 
-  // totals + 30-day momentum
   const realized = all.filter((o) => REVENUE.has(o.status));
   const revenue = realized.reduce((s, o) => s + Number(o.total_amount), 0);
   const aov = realized.length ? revenue / realized.length : 0;
@@ -137,11 +138,23 @@ export default async function DashboardPage() {
             <CardTitle className="text-base">Orders by status</CardTitle>
             <CardDescription>All time</CardDescription>
           </CardHeader>
-          <CardContent className="pl-0">
+          <CardContent>
             <StatusChart data={statusCounts} />
           </CardContent>
         </Card>
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Orders per month</CardTitle>
+          <CardDescription>Volume over the last 12 months</CardDescription>
+        </CardHeader>
+        <CardContent className="pl-0">
+          <OrdersChart
+            data={months.map((m) => ({ month: m.month, orders: m.orders }))}
+          />
+        </CardContent>
+      </Card>
     </div>
   );
 }
