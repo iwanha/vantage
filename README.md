@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vantage — Ops Console
 
-## Getting Started
+A reference back-office **ops console** for a fictional commerce team — built to demonstrate the data-heavy internal tools I build: fast server-side tables, real dashboards, and role-based workflows.
 
-First, run the development server:
+**Live demo:** _(deploying)_
+**Sign in:** `admin@vantage.demo` or `viewer@vantage.demo` — password `vantage-demo`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+> Log in as **admin** (full CRUD) or **viewer** (read-only) to see role-based access in action.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## What it shows
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Server-side data tables** (TanStack Table) — pagination, sorting, filtering and search run in Postgres and scale to millions of rows; table state lives in the URL (shareable, back-button friendly).
+- **Dashboard** — KPI cards with 30-day deltas, plus Recharts revenue (area) and orders-by-status charts.
+- **Full CRUD** — create / edit / delete for orders, products and customers via typed **Server Actions** with React Hook Form + Zod validation, toasts and confirm dialogs.
+- **Role-based access control** — enforced twice: hidden in the UI *and* at the database via **Supabase Row-Level Security** (admin writes, viewer read-only).
+- **Auth** — Supabase Auth (email/password) with protected routes.
+- **Owned design** — a warm "Neo-Mirai" theme (editorial serif display + monospace data), first-class light/dark, purposeful motion.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Stack
 
-## Learn More
+Next.js 16 (App Router, RSC) · TypeScript · Tailwind v4 · shadcn/ui (Base UI) · TanStack Table · Recharts · React Hook Form + Zod · Supabase (Postgres · Auth · RLS)
 
-To learn more about Next.js, take a look at the following resources:
+## Run locally
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. `pnpm install`
+2. Create a Supabase project, copy `.env.example` → `.env.local`, and fill in the keys (Project Settings → API).
+3. Run `supabase/schema.sql` in the Supabase SQL editor.
+4. Seed demo data: `node --env-file=.env.local scripts/seed.mjs`
+5. `pnpm dev`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built by [Iwan Hadi Setiawan](https://www.linkedin.com/in/iwanhadisetiawan/) · [portfolio](https://portfolio-iwan.vercel.app)
