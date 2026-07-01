@@ -22,7 +22,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -114,12 +113,12 @@ export function AppShell({
               </Badge>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuLabel className="font-normal">
-                <div className="truncate text-sm">{email}</div>
+              <div className="px-1.5 py-1.5">
+                <div className="truncate text-sm font-medium">{email}</div>
                 <div className="text-xs capitalize text-muted-foreground">
                   {role} access
                 </div>
-              </DropdownMenuLabel>
+              </div>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={signOut}>
                 <LogOut className="mr-2 size-4" />
