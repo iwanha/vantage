@@ -16,7 +16,7 @@ export default async function UsersPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-3xl tracking-tight">Users &amp; roles</h1>
+        <h1 className="font-display text-2xl tracking-tight">Users &amp; roles</h1>
         <p className="text-sm text-muted-foreground">
           Manage who can view vs. edit. Roles are enforced by Postgres
           row-level security — not just the UI.

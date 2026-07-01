@@ -48,7 +48,7 @@ export default async function ProductsPage({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-3xl tracking-tight">Products</h1>
+        <h1 className="font-display text-2xl tracking-tight">Products</h1>
         <p className="text-sm text-muted-foreground">
           Catalog with server-side search, category and status filters.
         </p>

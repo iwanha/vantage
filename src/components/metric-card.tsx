@@ -30,7 +30,7 @@ export function MetricCard({
             <Icon className="size-5" />
           </span>
         </div>
-        <div className="mt-3 font-display text-3xl font-medium tracking-tight tabular-nums">
+        <div className="mt-3 font-display text-2xl font-medium tracking-tight tabular-nums">
           {value}
         </div>
         <div className="mt-2 flex items-center gap-2 text-xs">

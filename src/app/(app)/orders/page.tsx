@@ -51,7 +51,7 @@ export default async function OrdersPage({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-3xl tracking-tight">Orders</h1>
+        <h1 className="font-display text-2xl tracking-tight">Orders</h1>
         <p className="text-sm text-muted-foreground">
           Server-side paginated, filtered and sorted across the full order book.
         </p>

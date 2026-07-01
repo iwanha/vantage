@@ -43,7 +43,7 @@ export default async function CustomersPage({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-3xl tracking-tight">Customers</h1>
+        <h1 className="font-display text-2xl tracking-tight">Customers</h1>
         <p className="text-sm text-muted-foreground">
           Customer directory with server-side search and country filter.
         </p>

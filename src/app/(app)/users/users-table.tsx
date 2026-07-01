@@ -73,7 +73,7 @@ export function UsersTable({
             return (
               <TableRow key={u.id}>
                 <TableCell className="py-2.5">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2.5">
                     <Avatar className="size-8">
                       <AvatarFallback className="text-xs">
                         {u.email.slice(0, 2).toUpperCase()}
