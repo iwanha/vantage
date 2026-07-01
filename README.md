@@ -2,7 +2,7 @@
 
 A reference back-office **ops console** for a fictional commerce team — built to demonstrate the data-heavy internal tools I build: fast server-side tables, real dashboards, and role-based workflows.
 
-**Live demo:** _(deploying)_
+**Live demo:** [vantage-swart-one.vercel.app](https://vantage-swart-one.vercel.app)
 **Sign in:** `admin@vantage.demo` or `viewer@vantage.demo` — password `vantage-demo`
 
 > Log in as **admin** (full CRUD) or **viewer** (read-only) to see role-based access in action.
