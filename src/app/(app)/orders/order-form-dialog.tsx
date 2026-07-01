@@ -29,6 +29,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from "@/components/ui/combobox";
 
 const schema = z.object({
   customer_id: z.string().uuid("Pick a customer"),
@@ -118,26 +126,24 @@ export function OrderFormDialog({
               control={control}
               name="customer_id"
               render={({ field }) => (
-                <Select
-                  value={field.value || null}
-                  onValueChange={field.onChange}
+                <Combobox
+                  items={customers}
+                  value={customers.find((c) => c.id === field.value) ?? null}
+                  onValueChange={(c) => field.onChange(c?.id ?? "")}
+                  itemToStringLabel={(c) => c.name}
                 >
-                  <SelectTrigger id="customer">
-                    <SelectValue placeholder="Select customer">
-                      {(value) =>
-                        customers.find((c) => c.id === value)?.name ??
-                        "Select customer"
-                      }
-                    </SelectValue>
-                  </SelectTrigger>
-                  <SelectContent className="max-h-64">
-                    {customers.map((c) => (
-                      <SelectItem key={c.id} value={c.id}>
-                        {c.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                  <ComboboxInput id="customer" placeholder="Search customer…" />
+                  <ComboboxContent>
+                    <ComboboxEmpty>No customer found.</ComboboxEmpty>
+                    <ComboboxList>
+                      {(c) => (
+                        <ComboboxItem key={c.id} value={c}>
+                          {c.name}
+                        </ComboboxItem>
+                      )}
+                    </ComboboxList>
+                  </ComboboxContent>
+                </Combobox>
               )}
             />
             {errors.customer_id && (
