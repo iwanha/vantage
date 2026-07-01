@@ -15,6 +15,7 @@ import { createClient } from "@/lib/supabase/client";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
+import { ThemeCustomizer } from "@/components/theme-customizer";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -87,6 +88,7 @@ export function AppShell({
 
       <div className="flex min-w-0 flex-col">
         <header className="flex h-14 items-center justify-end gap-1 border-b px-6">
+          <ThemeCustomizer />
           <ModeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger

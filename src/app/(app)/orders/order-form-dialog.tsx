@@ -119,7 +119,7 @@ export function OrderFormDialog({
               name="customer_id"
               render={({ field }) => (
                 <Select
-                  value={field.value || undefined}
+                  value={field.value || null}
                   onValueChange={field.onChange}
                 >
                   <SelectTrigger id="customer">

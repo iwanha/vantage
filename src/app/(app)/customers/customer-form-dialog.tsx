@@ -129,7 +129,7 @@ export function CustomerFormDialog({
               name="country"
               render={({ field }) => (
                 <Select
-                  value={field.value || undefined}
+                  value={field.value || null}
                   onValueChange={field.onChange}
                 >
                   <SelectTrigger id="country">

@@ -38,6 +38,11 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var a=localStorage.getItem('accent');if(a&&a!=='amber')document.documentElement.dataset.accent=a;}catch(e){}`,
+          }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

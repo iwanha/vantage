@@ -134,7 +134,7 @@ export function ProductFormDialog({ open, onOpenChange, mode, product }: Props) 
                 name="category"
                 render={({ field }) => (
                   <Select
-                    value={field.value || undefined}
+                    value={field.value || null}
                     onValueChange={field.onChange}
                   >
                     <SelectTrigger id="category">
