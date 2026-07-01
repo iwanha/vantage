@@ -8,6 +8,7 @@ import {
   ShoppingCart,
   Package,
   Users,
+  ShieldCheck,
   LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -26,7 +27,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const nav = [
+const baseNav = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/orders", label: "Orders", icon: ShoppingCart },
   { href: "/products", label: "Products", icon: Package },
@@ -44,6 +45,11 @@ export function AppShell({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+
+  const nav =
+    role === "admin"
+      ? [...baseNav, { href: "/users", label: "Users", icon: ShieldCheck }]
+      : baseNav;
 
   async function signOut() {
     await createClient().auth.signOut();
