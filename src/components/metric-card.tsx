@@ -38,9 +38,7 @@ export function MetricCard({
             <span
               className={cn(
                 "inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 font-medium",
-                up
-                  ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                  : "bg-rose-500/10 text-rose-600 dark:text-rose-400",
+                up ? "bg-success/10 text-success" : "bg-danger/10 text-danger",
               )}
             >
               {up ? (
