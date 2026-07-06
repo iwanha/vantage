@@ -64,7 +64,7 @@ export default function LoginPage() {
               The ops console, running on real data.
             </h1>
             <p className="max-w-sm text-sm text-muted-foreground">
-              A reference build of the data-heavy internal tools I ship —
+              The data-heavy internal tools a commerce team actually runs on —
               server-side tables over thousands of rows, role-gated writes, and
               a dashboard that actually moves.
             </p>

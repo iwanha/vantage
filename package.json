@@ -2,11 +2,13 @@
   "name": "vantage",
   "version": "0.1.0",
   "private": true,
+  "description": "Vantage — a production-grade back-office ops console built on Next.js 16 + Supabase (server-side tables, RLS roles, dashboard).",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed": "node --env-file=.env.local scripts/seed.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
