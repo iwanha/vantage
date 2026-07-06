@@ -10,10 +10,14 @@ import {
 } from "recharts";
 import { capitalize } from "@/lib/format";
 import { STATUS_COLOR } from "@/lib/status";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useMounted } from "@/lib/use-mounted";
 
 type Point = { status: string; count: number };
 
 export function StatusChart({ data }: { data: Point[] }) {
+  const mounted = useMounted();
+  if (!mounted) return <Skeleton className="h-[280px] w-full" />;
   return (
     <ResponsiveContainer width="100%" height={280}>
       <PieChart>
@@ -25,6 +29,7 @@ export function StatusChart({ data }: { data: Point[] }) {
           outerRadius={85}
           paddingAngle={2}
           strokeWidth={0}
+          isAnimationActive={false}
         >
           {data.map((d) => (
             <Cell key={d.status} fill={STATUS_COLOR[d.status] ?? "var(--primary)"} />
