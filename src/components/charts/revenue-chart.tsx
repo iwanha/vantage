@@ -9,10 +9,14 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useMounted } from "@/lib/use-mounted";
 
 type Point = { month: string; revenue: number };
 
 export function RevenueChart({ data }: { data: Point[] }) {
+  const mounted = useMounted();
+  if (!mounted) return <Skeleton className="h-[280px] w-full" />;
   return (
     <ResponsiveContainer width="100%" height={280}>
       <AreaChart data={data} margin={{ left: 4, right: 8, top: 8, bottom: 0 }}>
@@ -27,6 +31,7 @@ export function RevenueChart({ data }: { data: Point[] }) {
           dataKey="month"
           tickLine={false}
           axisLine={false}
+          minTickGap={16}
           tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
         />
         <YAxis
@@ -52,6 +57,7 @@ export function RevenueChart({ data }: { data: Point[] }) {
           stroke="var(--primary)"
           strokeWidth={2}
           fill="url(#revFill)"
+          isAnimationActive={false}
         />
       </AreaChart>
     </ResponsiveContainer>

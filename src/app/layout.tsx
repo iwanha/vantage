@@ -20,10 +20,20 @@ const fraunces = Fraunces({
   weight: ["400", "500", "600"],
 });
 
+const SITE = "Vantage — Ops Console";
+const DESCRIPTION =
+  "Reference data-heavy ops console — Next.js 16, React 19, TanStack Table, Recharts, Supabase. Server-side tables, role-gated writes, a live dashboard.";
+
 export const metadata: Metadata = {
-  title: "Vantage — Ops Console",
-  description:
-    "Reference data-heavy ops dashboard — Next.js, TypeScript, TanStack Table, Recharts, Supabase.",
+  metadataBase: new URL(
+    process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000",
+  ),
+  title: SITE,
+  description: DESCRIPTION,
+  openGraph: { title: SITE, description: DESCRIPTION, type: "website" },
+  twitter: { card: "summary_large_image", title: SITE, description: DESCRIPTION },
 };
 
 export default function RootLayout({

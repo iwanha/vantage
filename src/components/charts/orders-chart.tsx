@@ -9,10 +9,14 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useMounted } from "@/lib/use-mounted";
 
 type Point = { month: string; orders: number };
 
 export function OrdersChart({ data }: { data: Point[] }) {
+  const mounted = useMounted();
+  if (!mounted) return <Skeleton className="h-[260px] w-full" />;
   return (
     <ResponsiveContainer width="100%" height={260}>
       <BarChart data={data} margin={{ left: 4, right: 8, top: 8, bottom: 0 }}>
@@ -21,6 +25,7 @@ export function OrdersChart({ data }: { data: Point[] }) {
           dataKey="month"
           tickLine={false}
           axisLine={false}
+          minTickGap={16}
           tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
         />
         <YAxis
@@ -41,7 +46,12 @@ export function OrdersChart({ data }: { data: Point[] }) {
           }}
           formatter={(v) => [v, "Orders"]}
         />
-        <Bar dataKey="orders" fill="var(--primary)" radius={[6, 6, 0, 0]} />
+        <Bar
+          dataKey="orders"
+          fill="var(--primary)"
+          radius={[6, 6, 0, 0]}
+          isAnimationActive={false}
+        />
       </BarChart>
     </ResponsiveContainer>
   );

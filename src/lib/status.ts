@@ -9,12 +9,12 @@ export const STATUS_ORDER = [
 
 // Single source of truth for status colors (charts + badges).
 export const STATUS_COLOR: Record<string, string> = {
-  pending: "var(--chart-4)",
-  paid: "var(--chart-2)",
-  shipped: "var(--chart-3)",
-  delivered: "var(--chart-1)",
-  cancelled: "var(--muted-foreground)",
-  refunded: "var(--chart-5)",
-  active: "var(--chart-3)",
-  archived: "var(--muted-foreground)",
+  pending: "var(--status-pending)",
+  paid: "var(--status-paid)",
+  shipped: "var(--status-shipped)",
+  delivered: "var(--status-delivered)",
+  cancelled: "var(--status-cancelled)",
+  refunded: "var(--status-refunded)",
+  active: "var(--status-delivered)",
+  archived: "var(--status-refunded)",
 };

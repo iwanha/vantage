@@ -24,6 +24,14 @@
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
+  --color-status-pending: var(--status-pending);
+  --color-status-paid: var(--status-paid);
+  --color-status-shipped: var(--status-shipped);
+  --color-status-delivered: var(--status-delivered);
+  --color-status-cancelled: var(--status-cancelled);
+  --color-status-refunded: var(--status-refunded);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -83,6 +91,18 @@
   --sidebar-accent-foreground: oklch(0.28 0.03 55);
   --sidebar-border: oklch(0.9 0.012 80);
   --sidebar-ring: oklch(0.62 0.16 55);
+
+  /* semantic status colors — distinct hues so status is scannable (F-11) */
+  --status-pending: oklch(0.7 0.14 75);
+  --status-paid: oklch(0.55 0.2 295);
+  --status-shipped: oklch(0.55 0.15 245);
+  --status-delivered: oklch(0.6 0.14 155);
+  --status-cancelled: oklch(0.58 0.21 27);
+  --status-refunded: oklch(0.6 0.03 250);
+
+  /* semantic feedback — up/down, positive/negative */
+  --success: oklch(0.6 0.14 155);
+  --danger: oklch(0.58 0.21 27);
 }
 
 /* Neo-Mirai — warm dark */
@@ -118,6 +138,17 @@
   --sidebar-accent-foreground: oklch(0.95 0.012 80);
   --sidebar-border: oklch(0.3 0.014 62);
   --sidebar-ring: oklch(0.8 0.14 72);
+
+  --status-pending: oklch(0.8 0.14 75);
+  --status-paid: oklch(0.7 0.17 295);
+  --status-shipped: oklch(0.72 0.14 245);
+  --status-delivered: oklch(0.75 0.15 155);
+  --status-cancelled: oklch(0.68 0.2 27);
+  --status-refunded: oklch(0.7 0.03 250);
+
+  /* semantic feedback — up/down, positive/negative */
+  --success: oklch(0.75 0.15 155);
+  --danger: oklch(0.68 0.2 27);
 }
 
 @layer base {
@@ -135,6 +166,16 @@
 @theme {
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* login: revenue line self-draws once (reduced-motion snaps it to drawn) */
+@keyframes draw-line {
+  from {
+    stroke-dashoffset: 1200;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

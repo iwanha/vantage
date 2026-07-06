@@ -55,3 +55,13 @@ export async function deleteCustomer(id: string): Promise<ActionResult> {
   revalidatePath("/customers");
   return { ok: true };
 }
+
+export async function deleteCustomers(ids: string[]): Promise<ActionResult> {
+  if (!(await isAdmin())) return { ok: false, error: "Viewer accounts are read-only." };
+  if (ids.length === 0) return { ok: true };
+  const supabase = await createClient();
+  const { error } = await supabase.from("customers").delete().in("id", ids);
+  if (error) return { ok: false, error: error.message };
+  revalidatePath("/customers");
+  return { ok: true };
+}
