@@ -10,15 +10,21 @@ import {
   Package,
   Users,
   ShieldCheck,
+  Settings,
+  UserRound,
   LogOut,
   Menu,
+  Code2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SOURCE_URL } from "@/lib/site";
 import { createClient } from "@/lib/supabase/client";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { ThemeCustomizer } from "@/components/theme-customizer";
+import { Breadcrumbs } from "@/components/breadcrumbs";
+import { CommandPalette } from "@/components/command-palette";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -28,6 +34,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 type NavItem = {
   href: string;
@@ -81,8 +88,18 @@ function SidebarNav({
           );
         })}
       </nav>
-      <div className="border-t p-4 text-xs text-muted-foreground">
-        Reference ops console
+      <div className="space-y-1.5 border-t p-4 text-xs text-muted-foreground">
+        <p>Reference ops console · synthetic demo data</p>
+        {SOURCE_URL && (
+          <a
+            href={SOURCE_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
+          >
+            <Code2 className="size-3" /> View source
+          </a>
+        )}
       </div>
     </div>
   );
@@ -113,13 +130,14 @@ export function AppShell({
   }
 
   return (
+    <TooltipProvider>
     <div className="grid min-h-svh lg:grid-cols-[240px_1fr]">
       <aside className="hidden border-r lg:block">
         <SidebarNav nav={nav} pathname={pathname} />
       </aside>
 
       <div className="flex min-w-0 flex-col">
-        <header className="flex h-14 items-center gap-1 border-b px-4 lg:px-6">
+        <header className="flex h-14 items-center gap-2 border-b px-4 lg:px-6">
           <Button
             variant="ghost"
             size="icon"
@@ -130,7 +148,10 @@ export function AppShell({
             <Menu className="size-5" />
           </Button>
 
+          <Breadcrumbs />
+
           <div className="ml-auto flex items-center gap-1">
+            <CommandPalette role={role} />
             <ThemeCustomizer />
             <ModeToggle />
             <DropdownMenu>
@@ -158,6 +179,15 @@ export function AppShell({
                   </div>
                 </div>
                 <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => router.push("/profile")}>
+                  <UserRound className="mr-2 size-4" />
+                  Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push("/settings")}>
+                  <Settings className="mr-2 size-4" />
+                  Settings
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={signOut}>
                   <LogOut className="mr-2 size-4" />
                   Sign out
@@ -166,7 +196,9 @@ export function AppShell({
             </DropdownMenu>
           </div>
         </header>
-        <main className="min-w-0 flex-1 bg-muted/20 p-4 sm:p-6">{children}</main>
+        <main className="min-w-0 flex-1 bg-muted/20 p-4 sm:p-6">
+          <div className="mx-auto w-full max-w-7xl">{children}</div>
+        </main>
       </div>
 
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
@@ -180,5 +212,6 @@ export function AppShell({
         </SheetContent>
       </Sheet>
     </div>
+    </TooltipProvider>
   );
 }
