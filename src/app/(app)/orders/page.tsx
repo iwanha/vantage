@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { getProfile } from "@/lib/auth";
 import { OrdersTable, type OrderRow } from "./orders-table";
+import { PageHeader } from "@/components/page-header";
 
 const SORTABLE = ["order_number", "status", "total_amount", "created_at"];
 
@@ -20,7 +21,7 @@ export default async function OrdersPage({
 }) {
   const sp = await searchParams;
   const page = Math.max(1, Number(sp.page) || 1);
-  const pageSize = [10, 25, 50].includes(Number(sp.size)) ? Number(sp.size) : 10;
+  const pageSize = [10, 25, 50].includes(Number(sp.size)) ? Number(sp.size) : 25;
   const sort = SORTABLE.includes(sp.sort ?? "") ? sp.sort! : "created_at";
   const dir: "asc" | "desc" = sp.dir === "asc" ? "asc" : "desc";
   const status = sp.status ?? "all";
@@ -50,12 +51,10 @@ export default async function OrdersPage({
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-display text-2xl tracking-tight">Orders</h1>
-        <p className="text-sm text-muted-foreground">
-          Server-side paginated, filtered and sorted across the full order book.
-        </p>
-      </div>
+      <PageHeader
+        title="Orders"
+        description="Server-side paginated, filtered and sorted across the full order book."
+      />
       <OrdersTable
         rows={(data ?? []) as unknown as OrderRow[]}
         total={count ?? 0}

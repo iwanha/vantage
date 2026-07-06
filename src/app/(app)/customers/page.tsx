@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { getProfile } from "@/lib/auth";
 import { CustomersTable, type CustomerRow } from "./customers-table";
+import { PageHeader } from "@/components/page-header";
 
 const SORTABLE = ["name", "email", "country", "created_at"];
 
@@ -20,7 +21,7 @@ export default async function CustomersPage({
 }) {
   const sp = await searchParams;
   const page = Math.max(1, Number(sp.page) || 1);
-  const pageSize = [10, 25, 50].includes(Number(sp.size)) ? Number(sp.size) : 10;
+  const pageSize = [10, 25, 50].includes(Number(sp.size)) ? Number(sp.size) : 25;
   const sort = SORTABLE.includes(sp.sort ?? "") ? sp.sort! : "name";
   const dir: "asc" | "desc" = sp.dir === "desc" ? "desc" : "asc";
   const country = sp.country ?? "all";
@@ -42,12 +43,10 @@ export default async function CustomersPage({
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-display text-2xl tracking-tight">Customers</h1>
-        <p className="text-sm text-muted-foreground">
-          Customer directory with server-side search and country filter.
-        </p>
-      </div>
+      <PageHeader
+        title="Customers"
+        description="Customer directory with server-side search and country filter."
+      />
       <CustomersTable
         rows={(data ?? []) as CustomerRow[]}
         total={count ?? 0}

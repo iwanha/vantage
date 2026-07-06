@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { getProfile } from "@/lib/auth";
 import { ProductsTable, type ProductRow } from "./products-table";
+import { PageHeader } from "@/components/page-header";
 
 const SORTABLE = ["name", "sku", "category", "price", "stock", "created_at"];
 
@@ -21,7 +22,7 @@ export default async function ProductsPage({
 }) {
   const sp = await searchParams;
   const page = Math.max(1, Number(sp.page) || 1);
-  const pageSize = [10, 25, 50].includes(Number(sp.size)) ? Number(sp.size) : 10;
+  const pageSize = [10, 25, 50].includes(Number(sp.size)) ? Number(sp.size) : 25;
   const sort = SORTABLE.includes(sp.sort ?? "") ? sp.sort! : "name";
   const dir: "asc" | "desc" = sp.dir === "desc" ? "desc" : "asc";
   const category = sp.category ?? "all";
@@ -47,12 +48,10 @@ export default async function ProductsPage({
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-display text-2xl tracking-tight">Products</h1>
-        <p className="text-sm text-muted-foreground">
-          Catalog with server-side search, category and status filters.
-        </p>
-      </div>
+      <PageHeader
+        title="Products"
+        description="Catalog with server-side search, category and status filters."
+      />
       <ProductsTable
         rows={(data ?? []) as ProductRow[]}
         total={count ?? 0}
