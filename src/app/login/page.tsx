@@ -70,7 +70,9 @@ export default function LoginPage() {
             </p>
           </div>
 
-          {/* mini instrument */}
+          {/* mini instrument: the figures mirror the 12M dashboard KPIs of the
+              seeded demo DB; update them by hand after re-seeding (and in
+              opengraph-image.tsx) */}
           <div className="max-w-sm rounded-xl border bg-card/70 p-5 shadow-sm backdrop-blur-sm">
             <div className="flex items-baseline justify-between">
               <span className="text-xs uppercase tracking-wide text-muted-foreground">
@@ -84,11 +86,11 @@ export default function LoginPage() {
                   color: "var(--status-delivered)",
                 }}
               >
-                ↗ +32.7%
+                ↗ +38.5%
               </span>
             </div>
             <p className="mt-1 font-display text-3xl tracking-tight tabular-nums">
-              $765,745
+              $833,383
             </p>
             <svg
               viewBox="0 0 320 110"
