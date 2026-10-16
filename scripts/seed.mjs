@@ -142,11 +142,13 @@ async function main() {
 
   console.log("orders…");
   const orders = Array.from({ length: 2000 }, (_, i) => {
-    // bias creation toward recent days so both volume and revenue trend up (F-02)
-    const daysAgo = Math.floor(365 * Math.pow(Math.random(), 1.3));
+    // 2 years of history, biased toward recent days: volume and revenue trend up,
+    // and the dashboard's "vs prev N months" always has a prior window to compare
+    // against (about +25% orders, +35% revenue on the 12-month view).
+    const daysAgo = Math.floor(730 * Math.pow(Math.random(), 1.15));
     const created = new Date(now - daysAgo * DAY - rnd(DAY));
-    // gentle growth: recent orders carry a higher value than year-old ones
-    const growth = 1.35 - (daysAgo / 365) * 0.7;
+    // gentle growth: recent orders carry a slightly higher value than old ones
+    const growth = 1.1 - (daysAgo / 730) * 0.2;
     return {
       order_number: `ORD-${String(i + 1).padStart(6, "0")}`,
       customer_id: pick(customerIds),
