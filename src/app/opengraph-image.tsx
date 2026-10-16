@@ -67,7 +67,7 @@ export default function OgImage() {
           </div>
           <div style={{ display: "flex", alignItems: "flex-end", gap: 24 }}>
             <div style={{ display: "flex", fontSize: 118, fontWeight: 800 }}>
-              $765,745
+              $833,383
             </div>
             <div
               style={{
@@ -81,7 +81,7 @@ export default function OgImage() {
                 fontWeight: 700,
               }}
             >
-              +32.7%
+              +38.5%
             </div>
           </div>
         </div>
