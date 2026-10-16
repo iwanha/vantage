@@ -11,6 +11,7 @@ import { MetricCard } from "@/components/metric-card";
 import { RevenueChart } from "@/components/charts/revenue-chart";
 import { StatusChart } from "@/components/charts/status-chart";
 import { OrdersChart } from "@/components/charts/orders-chart";
+import { fetchAll } from "@/lib/fetch-all";
 import { currency, number } from "@/lib/format";
 import { STATUS_ORDER } from "@/lib/status";
 import { PageHeader } from "@/components/page-header";
@@ -31,14 +32,20 @@ export default async function DashboardPage({
   const monthsN = rangeMonths(range);
 
   const supabase = await createClient();
-  const [{ data: orders }, { count: customerCount }, { count: productCount }] =
+  const [all, { count: customerCount }, { count: productCount }] =
     await Promise.all([
-      supabase.from("orders").select("total_amount, status, created_at"),
+      // stable order (created_at, id) so pages never overlap or skip rows
+      fetchAll<OrderRow>((from, to) =>
+        supabase
+          .from("orders")
+          .select("total_amount, status, created_at")
+          .order("created_at", { ascending: false })
+          .order("id")
+          .range(from, to),
+      ),
       supabase.from("customers").select("*", { count: "exact", head: true }),
       supabase.from("products").select("*", { count: "exact", head: true }),
     ]);
-
-  const all = (orders ?? []) as OrderRow[];
 
   // revenue + order volume by month, over the selected window. The window ends
   // at the last *completed* month — the current partial month would otherwise
